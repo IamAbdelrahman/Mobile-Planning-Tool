@@ -56,23 +56,23 @@ def calculateCellRadius():
 
 baseStationPower = msSensitivity + pathLossExponent * (2 * bsHeight) - SIRmin
 
-# # Outputting the design parameters
-# print('Design Parameters:')
-# print('Cluster Size:', calculateClusterSize())
-# print('Number of Cells:', calculateNumCells())
-# print('Cell Radius:', calculateCellRadius())
-# print('Traffic Intensity per Cell:', calculateTrafficIntensityPerCell(), 'Erlang')
-# print('Traffic Intensity per Sector:', calculateTrafficIntensityPerSector(), 'Erlang')
-# print('Base Station Transmitted Power:', baseStationPower, 'dBm')
+# Outputting the design parameters
+print('Design Parameters:')
+print('Cluster Size:', calculateClusterSize())
+print('Number of Cells:', calculateNumCells())
+print('Cell Radius:', calculateCellRadius())
+print('Traffic Intensity per Cell:', calculateTrafficIntensityPerCell(), 'Erlang')
+print('Traffic Intensity per Sector:', calculateTrafficIntensityPerSector(), 'Erlang')
+print('Base Station Transmitted Power:', baseStationPower, 'dBm')
 
-# # Plotting MS received power versus receiver distance
-# receiverDistance = np.linspace(0, 10, 100)
-# msReceivedPower = baseStationPower - pathLossExponent * (2 * msHeight) - pathLossExponent * 10 * np.log10(receiverDistance)
-# plt.plot(receiverDistance, msReceivedPower)
-# plt.xlabel('Receiver Distance (km)')
-# plt.ylabel('MS Received Power (dBm)')
-# plt.title('MS Received Power vs. Receiver Distance')
-# plt.show()
+# Plotting MS received power versus receiver distance
+receiverDistance = np.linspace(0, 10, 100)
+msReceivedPower = baseStationPower - pathLossExponent * (2 * msHeight) - pathLossExponent * 10 * np.log10(receiverDistance)
+plt.plot(receiverDistance, msReceivedPower)
+plt.xlabel('Receiver Distance (km)')
+plt.ylabel('MS Received Power (dBm)')
+plt.title('MS Received Power vs. Receiver Distance')
+plt.show()
 
 # # -------------------------------------------------------------------------------------------------- #
 # # ------------------------------- Part B -- Validation --------------------------------------------- #
@@ -234,16 +234,16 @@ def plotCellRadiusVsUserDensity(SIRmin, userDensityRange, GOS):
     plt.show()
     
 # Example usage of the functions
-# plotClusterSizeVsSIRmin(SIRminRange)
+plotClusterSizeVsSIRmin(SIRminRange)
 
-# plotNumCellsVsGOS(r_sir_min_2, user_density, GOSRange)
-# plotNumCellsVsGOS(r_sir_min_1, user_density, GOSRange)
+plotNumCellsVsGOS(r_sir_min_2, user_density, GOSRange)
+plotNumCellsVsGOS(r_sir_min_1, user_density, GOSRange)
 
-# plotTrafficIntensityPerCellVsGOS(r_sir_min_1, 1400, GOSRange)
-# plotTrafficIntensityPerCellVsGOS(r_sir_min_2, 1400, GOSRange)
+plotTrafficIntensityPerCellVsGOS(r_sir_min_1, 1400, GOSRange)
+plotTrafficIntensityPerCellVsGOS(r_sir_min_2, 1400, GOSRange)
 
-# plotNumberOfCellsVsUserDensity(r_sir_min_1, user_density_range, gos)
-# plotNumberOfCellsVsUserDensity(r_sir_min_2, user_density_range, gos)
+plotNumberOfCellsVsUserDensity(r_sir_min_1, user_density_range, gos)
+plotNumberOfCellsVsUserDensity(r_sir_min_2, user_density_range, gos)
 
 plotCellRadiusVsUserDensity(r_sir_min_1, user_density_range, gos)
 plotCellRadiusVsUserDensity(r_sir_min_2, user_density_range, gos)
