@@ -58,11 +58,11 @@ baseStationPower = msSensitivity + pathLossExponent * (2 * bsHeight) - SIRmin
 
 # Outputting the design parameters
 print('Design Parameters:')
-print('Cluster Size:', calculateClusterSize())
+print('Cluster Size:', calculateClusterSize(sectorizationMethod))
 print('Number of Cells:', calculateNumCells())
 print('Cell Radius:', calculateCellRadius())
 print('Traffic Intensity per Cell:', calculateTrafficIntensityPerCell(), 'Erlang')
-print('Traffic Intensity per Sector:', calculateTrafficIntensityPerSector(), 'Erlang')
+print('Traffic Intensity per Sector:', calculateTrafficIntensityPerSector(sectorizationMethod), 'Erlang')
 print('Base Station Transmitted Power:', baseStationPower, 'dBm')
 
 # Plotting MS received power versus receiver distance
@@ -116,7 +116,7 @@ def plotClusterSizeVsSIRmin(SIRmin_range):
 def plotNumCellsVsGOS(SIRmin, userDensity, GOSRange):
     # Calculate the number of cells for each GOS value
     def calculate_number_cells(userDensity, GOS):
-        return (-np.log(gos) / userDensity)
+        return (-np.log(GOS) / userDensity)
     
     number_of_cells_omni = []
     number_of_cells_120 = []
@@ -141,7 +141,7 @@ def plotNumCellsVsGOS(SIRmin, userDensity, GOSRange):
 def plotTrafficIntensityPerCellVsGOS(SIRmin, userDensity, GOSRange):
     # Calculate the traffic intensity per cell for each GOS value
     def calculate_traffic_intensity(userDensity, GOS):
-        return (userDensity * gos)
+        return (userDensity * GOS)
     
     trafficIntensity_omni = []
     trafficIntensity_120 = []
@@ -167,7 +167,7 @@ def plotTrafficIntensityPerCellVsGOS(SIRmin, userDensity, GOSRange):
 def plotNumberOfCellsVsUserDensity(SIRmin, userDensityRange, GOS):
     # Calculate the number of cells for each user density
     def calculate_num_cells(SIRmin, density, GOS):
-        return -np.log(gos) / density
+        return -np.log(GOS) / density
     
     num_cells_omni = []
     num_cells_120 = []
