@@ -166,17 +166,36 @@ def plotTrafficIntensityPerCellVsGOS(SIRmin, userDensity, GOSRange):
 
 def plotNumberOfCellsVsUserDensity(SIRmin, userDensityRange, GOS):
     # Calculate the number of cells for each user density
-    def calculate_num_cells(SIRmin, density, GOS):
-        return -np.log(GOS) / density
+    def calculate_num_cells(density, SIRmin, GOS, io): 
+        SIR = 10 ** (SIRmin / 10)
+        # Calculate Number of Initial Cells  
+        N_init = np.sqrt(io * SIR) / 3
+        # Calculate Final Number of Cells
+        N_final = int(np.ceil(N_init / 3))
+        # Calculate Number of Channel Per Cell
+        Channels_Per_Cell = channelCount / N_final
+        # Calculate Number of Channel Per Sector
+        Channels_Per_Sector = Channels_Per_Cell // io
+        # Calculate the Traffic Intensity
+        Traffic_Intensity = Channels_Per_Sector / (1 - GOS)
+        # Calculate the Number of Users Per Cell
+        Number_of_Users_Per_Cell = Traffic_Intensity / trafficIntensityPerUser
+        # Calculate the Area of each Cell
+        Area_of_Cell = Number_of_Users_Per_Cell / density
+        # Calculate the Radius of each Cell
+        Radius_of_Cell = np.sqrt(Area_of_Cell / (1.5 * np.sqrt(3)))
+        # Calculate the Total Number of Cells
+        number_of_cells = cityArea / Area_of_Cell
+        return number_of_cells
     
     num_cells_omni = []
     num_cells_120 = []
     num_cells_60 = []
     
     for density in userDensityRange:
-        num_cells_omni.append(calculate_num_cells(SIRmin, density, GOS))
-        num_cells_120.append(3 * calculate_num_cells(SIRmin, density, GOS))
-        num_cells_60.append(6 * calculate_num_cells(SIRmin, density, GOS))
+        num_cells_omni.append(calculate_num_cells(density, SIRmin, GOS, 6))
+        num_cells_120.append(calculate_num_cells(density, SIRmin, GOS, 2))
+        num_cells_60.append(calculate_num_cells(density, SIRmin, GOS, 1))
         
     # Plot the the number of cells for each user density
     plt.plot(userDensityRange, num_cells_omni, label='Omni')
